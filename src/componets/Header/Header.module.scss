@@ -1,0 +1,11 @@
+.root{
+    .app_bar{
+        box-shadow: none;
+        background-color: rgb(235, 230, 230);
+        color: navy;
+
+        .toolbar{
+            padding: 0;
+        }
+    }
+}
