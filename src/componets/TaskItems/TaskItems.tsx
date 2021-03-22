@@ -6,9 +6,13 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Modal from "@material-ui/core/Modal";
-import { selectIsModalOpen, handleModalOpen,selectTaskReducer } from "../TaskSlice";
+import {
+  selectIsModalOpen,
+  handleModalOpen,
+  selectTaskReducer,
+} from "../TaskSlice";
 import { useDispatch, useSelector } from "react-redux";
-import TaskForm from '../TaskForm/TaskForm';
+import TaskForm from "../TaskForm/TaskForm";
 
 interface PropTypes {
   task: { id: number; title: string; completed: boolean };
@@ -19,13 +23,13 @@ const TaskItems: React.FC<PropTypes> = ({ task }) => {
   const isModalOpen = useSelector(selectIsModalOpen);
 
   const handleOpen = () => {
-    dispatch(selectTaskReducer(task))
+    dispatch(selectTaskReducer(task));
 
-    dispatch(handleModalOpen(isModalOpen));
+    dispatch(handleModalOpen(true));
   };
 
   const handleClose = () => {
-    dispatch(handleModalOpen(isModalOpen));
+    dispatch(handleModalOpen(false));
   };
   return (
     <div className={styles.root}>
@@ -60,7 +64,7 @@ const TaskItems: React.FC<PropTypes> = ({ task }) => {
       <Modal className={styles.modal} open={isModalOpen} onClose={handleClose}>
         <div className={styles.modal_content}>
           <div className={styles.modal_title}>modal</div>
-          <TaskForm edit/>
+          <TaskForm edit />
         </div>
       </Modal>
     </div>

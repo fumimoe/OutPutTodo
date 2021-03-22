@@ -3,7 +3,7 @@ import styles from "./TaskForm.module.scss";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, selectTask, handleModalOpen } from "../TaskSlice";
+import { createTask, selectTask, handleModalOpen,selectSelectedTask,editTask } from "../TaskSlice";
 
 type Inputs = {
   taskTitle: string;
@@ -15,7 +15,8 @@ type PropTypes = {
 
 const TaskForm: React.FC<PropTypes> = ({ edit }) => {
   const dispatch = useDispatch();
-  const selectedTask = useSelector(selectTask);
+  const selectedTask = useSelector(selectSelectedTask);
+  
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -26,7 +27,10 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
 
   const handleEdit = (data: Inputs) => {
     const sendData = { ...selectedTask, title: data.taskTitle };
-    dispatch(createTask(sendData));
+    dispatch(editTask(sendData));
+    dispatch(handleModalOpen(false))
+    
+
   };
 
   return (
@@ -42,7 +46,7 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
         autoComplete="off"
       >
         <TextField
-          defaultValue={edit ? "defaultvalue" : ""}
+          defaultValue={edit ? selectedTask.title : ""}
           id="outlined-basic"
           label={edit ? "edittask" : "new task"}
           variant="outlined"
@@ -52,7 +56,7 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
         />
         {edit ? (
           <div className={styles.wrapper}>
-            <button type="submit" className={styles.submit_button}>
+            <button  type="submit" className={styles.submit_button}>
               変更 
             </button>
             <button
