@@ -3,7 +3,7 @@ import styles from "./TaskForm.module.scss";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, selectTask } from "../TaskSlice";
+import { createTask, selectTask, handleModalOpen } from "../TaskSlice";
 
 type Inputs = {
   taskTitle: string;
@@ -40,10 +40,9 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
         className={styles.form}
         noValidate
         autoComplete="off"
-        
       >
         <TextField
-        defaultValue={edit ? 'defaultvalue' : ''}
+          defaultValue={edit ? "defaultvalue" : ""}
           id="outlined-basic"
           label={edit ? "edittask" : "new task"}
           variant="outlined"
@@ -53,8 +52,16 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
         />
         {edit ? (
           <div className={styles.wrapper}>
-            <button type="submit" className={styles.submit_button}>変更</button>
-            <button type="button" className={styles.cancel_button}>キャンセル</button>
+            <button type="submit" className={styles.submit_button}>
+              変更 
+            </button>
+            <button
+              type="button"
+              className={styles.cancel_button}
+              onClick={() => dispatch(handleModalOpen(false))}
+            >
+              キャンセル
+            </button>
           </div>
         ) : null}
       </form>

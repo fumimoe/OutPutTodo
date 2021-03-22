@@ -6,7 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Modal from "@material-ui/core/Modal";
-import { selectIsModalOpen, handleModalOpen } from "../TaskSlice";
+import { selectIsModalOpen, handleModalOpen,selectTaskReducer } from "../TaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TaskForm from '../TaskForm/TaskForm';
 
@@ -19,6 +19,8 @@ const TaskItems: React.FC<PropTypes> = ({ task }) => {
   const isModalOpen = useSelector(selectIsModalOpen);
 
   const handleOpen = () => {
+    dispatch(selectTaskReducer(task))
+
     dispatch(handleModalOpen(isModalOpen));
   };
 
