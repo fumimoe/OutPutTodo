@@ -10,6 +10,8 @@ import {
   selectIsModalOpen,
   handleModalOpen,
   selectTaskReducer,
+  completedTask,
+  deleteTask
 } from "../TaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import TaskForm from "../TaskForm/TaskForm";
@@ -45,7 +47,7 @@ const TaskItems: React.FC<PropTypes> = ({ task }) => {
         <IconButton>
           <Checkbox
             checked={task.completed}
-            onClick={() => console.log("checkbox")}
+            onClick={() => dispatch(completedTask(task))}
             inputProps={{ "aria-label": "primary checkbox" }}
             className={styles.checkbox}
           />
@@ -54,7 +56,7 @@ const TaskItems: React.FC<PropTypes> = ({ task }) => {
           <EditIcon className={styles.icon} />
         </IconButton>
         <IconButton
-          onClick={() => console.log("delete")}
+          onClick={() => dispatch(deleteTask(task))}
           className={styles.delete_button}
         >
           <DeleteIcon className={styles.icon} />

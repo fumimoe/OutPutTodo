@@ -42,6 +42,17 @@ export const taskSlice = createSlice({
         task.title = action.payload.title;
       }
     },
+    completedTask:(state,action) => {
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+
+      if(task) {
+        task.completed = !task.completed
+      }
+    },
+    deleteTask : (state,action) => {
+        state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+    }
+
   },
 });
 
@@ -50,6 +61,8 @@ export const {
   handleModalOpen,
   selectTaskReducer,
   editTask,
+  completedTask,
+  deleteTask
 } = taskSlice.actions;
 
 export const selectTask = (state: RootState): taskState["tasks"] =>
